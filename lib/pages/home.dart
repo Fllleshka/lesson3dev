@@ -14,32 +14,38 @@ class _StlWidgetState extends State<StlWidget> {
       body: Container(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
-      Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned(
-            left: 30,
-            bottom: 20,
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: const Icon(
-                Icons.delete_outline,
-                size: 40,
+        Stack(
+          fit: StackFit.expand,
+          children: [
+            // Левая кнопка удаление
+            Positioned(
+              left: 30,
+              bottom: 20,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/deletecont');
+                },
+                child: const Icon(
+                  Icons.delete_outline,
+                  size: 40,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 20,
-            right: 30,
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: const Icon(
-                Icons.add_circle_outline,
-                size: 40,
+            // Правая кнопка добавление
+            Positioned(
+              bottom: 20,
+              right: 30,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/addcont');
+                },
+                child: const Icon(
+                  Icons.add_circle_outline,
+                  size: 40,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
       ),
     );
   }
