@@ -12,6 +12,12 @@ class StlWidget extends StatefulWidget {
 
 class _StlWidgetState extends State<StlWidget> {
 
+  // Инициализация firebase
+  void initFirebase() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  }
+
   @override
   void initState(){
     super.initState();
@@ -30,9 +36,70 @@ class _StlWidgetState extends State<StlWidget> {
               return Dismissible(
                   key: Key(snapshot.data!.docs[index].id),
                   child: Card(
-                    child: ListTile(
-                      title: Text(snapshot.data!.docs[index].get('username')),
+                    margin: EdgeInsets.all(5),
+                    child: InkWell(
+                      onTap: (){
+                        TextEditingController userNameController = TextEditingController(text: snapshot.data!.docs[index].get('username'));
+                        TextEditingController lastnameController = TextEditingController(text: snapshot.data!.docs[index].get('lastname'));
+                        TextEditingController firstnameController = TextEditingController(text: snapshot.data!.docs[index].get('firstname'));
+                        TextEditingController phoneController = TextEditingController(text: snapshot.data!.docs[index].get('phone'));
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                AlertDialog(
+                                  title: Text("Редактирование данных"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      TextFormField(
+                                        controller: userNameController,
+                                        decoration: const InputDecoration(
+                                          icon: Icon(Icons.person),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: lastnameController,
+                                        decoration: const InputDecoration(
+                                          icon: Icon(Icons.assignment_ind_sharp),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: firstnameController,
+                                        decoration: const InputDecoration(
+                                          icon: Icon(Icons.account_circle),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: phoneController,
+                                        decoration: const InputDecoration(
+                                          icon: Icon(Icons.local_phone ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: (){
+                                          changedates(snapshot.data!.docs[index].id, userNameController.text, lastnameController.text, firstnameController.text, phoneController.text);
+                                          Navigator.pop(context);
+                                          },
+                                        child: Text("Сохранить"),
+                                    ),
+                                  ],
+                                ),
+                        );
+                      },
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.person,
+                          size: 50.0,
+                          color: Colors.deepOrangeAccent,
+                        ),
+                        title: Text(snapshot.data!.docs[index].get('username')),
+                        //subtitle: Text(snapshot.data!.docs[index].get('lastname') + " " + snapshot.data!.docs[index].get('firstname')),
+                      ),
                     ),
+
                   ),
               );
             }
@@ -55,6 +122,21 @@ class _StlWidgetState extends State<StlWidget> {
                 child: const Icon(
                   Icons.delete_outline,
                   size: 40,
+                ),
+              ),
+            ),
+            // Кнопка по центру
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/chat');
+                  },
+                  child: const Icon(
+                    Icons.chat,
+                    size: 40,
+                  ),
                 ),
               ),
             ),
