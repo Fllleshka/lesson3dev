@@ -125,7 +125,7 @@ class _AddNewContState extends State<AddNewCont> {
             bottom: 20,
             child: FloatingActionButton(
               onPressed: () {
-                editinfo(userNameController.text, lastnameController.text, firstnameController.text, phoneController.text);
+                addinfo(userNameController.text, lastnameController.text, firstnameController.text, phoneController.text);
               },
               child: const Icon(
                 Icons.save,
