@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lesson3/pages/components/inputmessage.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -6,7 +7,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
             onPressed: (){
@@ -17,12 +18,7 @@ class ChatPage extends StatelessWidget {
         centerTitle: true,
         title: Text("Общий чат"),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-          ],
-        ),
-      ),
+      body: Bodychat(),
     );
   }
 }
